@@ -1,7 +1,7 @@
 package com.squareup;
 
 public class Board {
-    private final Integer[] board = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private final String[] board = new String[9];
     public static Board getInstance() {
         return new Board();
     }
