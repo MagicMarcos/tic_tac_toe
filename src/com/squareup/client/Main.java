@@ -8,4 +8,4 @@ class Main {
             SquareUpApp app= new SquareUpApp();
             app.execute();
         }
-    }
+}
