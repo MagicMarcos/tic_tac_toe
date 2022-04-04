@@ -1,12 +1,12 @@
 package com.squareup;
 
 public class Board {
-    private final String[] board = new String[9];
+    private final String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     public static Board getInstance() {
         return new Board();
     }
 
-    public void printGameBoard(){
+    public void printGameBoard() {
         // printing the game board
         System.out.println("|-----|-----|-----|");
         System.out.println("|  " + board[0] + "  |  "

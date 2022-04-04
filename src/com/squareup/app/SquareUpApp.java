@@ -12,9 +12,5 @@ public class SquareUpApp {
     }
     // Create user input interface from console
     Scanner input = new Scanner(System.in);
-    for(int i=0; i<9 ; i++){
-        board[i] = String.valueOf(i+1);
-
-    }
 
 }
