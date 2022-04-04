@@ -1,5 +1,14 @@
 package com.squareup.app;
 
-class SquareUpApp {
+import com.squareup.Board;
+
+public class SquareUpApp {
+    public static void main(String[] args) {
+        Board board = new Board();
+
+        board.printGameBoard();
+    }
+
+
 
 }
