@@ -6,6 +6,8 @@ public class Board {
         return new Board();
     }
 
+    // check result of game
+
     public void printGameBoard() {
         // printing the game board
         System.out.println("|-----|-----|-----|");
