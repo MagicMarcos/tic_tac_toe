@@ -3,9 +3,8 @@ package com.squareup.app;
 import com.squareup.Board;
 
 public class SquareUpApp {
-    public static void main(String[] args) {
-        Board board = new Board();
-
+    private final Board board = Board.getInstance();
+    public void execute() {
         board.printGameBoard();
     }
 
