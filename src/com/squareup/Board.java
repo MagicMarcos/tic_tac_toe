@@ -1,67 +1,25 @@
 package com.squareup;
 
+
 import java.util.Arrays;
-import java.util.Scanner;
+
 
 public class Board {
-    private static final String welcomeMsg = "welcome_banner.txt";
     private final String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    private final String validInputs = "123456789";
     private String winner = null;
-
     private String currentPlayer = "X";
+
 
     public static Board getInstance() {
         return new Board();
     }
 
-    private Scanner input = new Scanner(System.in);
-
-
-    public void run() {
-
-        // while it's null we keep the game running
-        while(winner == null) {
-            String squareNumber = input.nextLine();
-
-            if (validInputs.contains(squareNumber)) {// -> validates the input
-                int numInput = Integer.parseInt(squareNumber);
-
-                // if square is already taken
-                if (board[numInput - 1].equals("X") || board[numInput - 1].equals("O")) {
-                    //  TODO: handle square is already taken message
-                    System.out.println("NO!!!!");
-                } else {
-                    board[numInput - 1] = getCurrentPlayer();
-                }
-
-                printGameBoard();
-
-                checkResult();
-
-                nexTurn();
-            } else {
-                // TODO: handle the message for wrong input
-                System.out.println("BRUH!");
-            }
-        }
-
-        // put this into it's own game end method?
-        // announce winner
-        if (winner.equals("draw")) {
-            System.out.println("It's a draw!");
-        } else {
-            System.out.println(winner + " wins!");
-        }
-
-        // TODO: game restart method.
-    }
 
     // check result of game
-    // if check result returns null, then go to nextTurn -> MAY NOT NEED TO RETURN ANYTHING
-    public String checkResult() {
+    public void checkResult() {
         for (int idx = 0; idx < 8; idx++) {
             String line = null;
+
 
             switch (idx) {
                 case 0:
@@ -89,46 +47,56 @@ public class Board {
                     line = board[2] + board[4] + board[6];
                     break;
             }
-            //X winner
+//X winner
             if (line.equals("XXX")) {
-                // TODO: Delete this
-                System.out.println("winnnneererrrr");
-                winner = "X";
-                return "X";
+                setWinner("X");
+                return;
             }
 
-            // O winner
+
+// O winner
             else if (line.equals("OOO")) {
-                winner = "O";
-                return "O";
+                setWinner("O");
+                return;
             }
         }
 
-        // draw check
+
+// draw check
         for (int idx = 0; idx < 9; idx++) {
             if (Arrays.asList(board).contains(
                     String.valueOf(idx + 1))) {
                 break;
-            }
-            else if (idx == 8) {
-                winner = "draw";
-                return "draw";
+            } else if (idx == 8) {
+                setWinner("draw");
+                return;
             }
         }
 
-        return null;
+
     }
 
-    public void nexTurn () {
-        if (currentPlayer.equals("X")) {
-            currentPlayer = "O";
+
+    public void claimSquare(int squareNum) {
+        if (board[squareNum - 1].equals("X") || board[squareNum - 1].equals("O")) {
+            System.out.println("This square is already claimed. Try again.");
         } else {
-            currentPlayer = "X";
+            board[squareNum - 1] = getCurrentPlayer();
         }
     }
 
-    public void printGameBoard() {
-        // printing the game board
+
+    public void changePlayers() {
+        if (currentPlayer.equals("X")) {
+            setCurrentPlayer("O");
+        } else {
+            setCurrentPlayer("X");
+        }
+    }
+
+
+    public void show() {
+// printing the game board
         System.out.println("|-----|-----|-----|");
         System.out.println("|  " + board[0] + "  |  "
                 + board[1] + "  |  " + board[2]
@@ -144,12 +112,33 @@ public class Board {
         System.out.println("|-----|-----|-----|");
     }
 
+
+    public void printWinner() {
+        if (winner.equals("draw")) {
+            System.out.println("It's a draw...");
+        } else {
+            System.out.println("Player " + winner + " wins!");
+        }
+    }
+
+
     // ACCESSOR METHODS
     public String getCurrentPlayer() {
         return currentPlayer;
     }
 
+
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+
+    public String getWinner() {
+        return winner;
+    }
+
+
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 }
