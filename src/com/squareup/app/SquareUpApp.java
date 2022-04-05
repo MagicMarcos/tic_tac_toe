@@ -1,35 +1,59 @@
 package com.squareup.app;
 
+
+import com.apps.util.Console;
+import com.apps.util.Prompter;
+import com.apps.util.SplashApp;
 import com.squareup.Board;
 
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 // does ALL prompting (for game and names) -- two private player objs if you have classes
 public class SquareUpApp {
-
+    private Console console;
+    private Prompter prompter;
+    private SplashApp splashApp;
+    private String username;
     private final Board board = Board.getInstance();
-    private String gameOver = null;
+    private boolean gameOver;
 
     private Scanner input = new Scanner(System.in);
 
-    public void execute() {
+    public SquareUpApp(Prompter prompter) {
+        this.prompter = prompter;
+    }
+
+    public void execute() throws IOException {
 
         // welcome banner
         welcome();
 
+        promptForUsername();
+
         // show board
         showBoard();
 
-        while (gameOver == null) {
+        while (!gameOver) {
             String squareNumber = input.nextLine();
             validateInput(squareNumber);
+            Console.clear();
             showBoard();
             checkGameStatus();
-            setGameOver(checkWinner());
+            updateGame();
             nextTurn();
         }
 
         announceWinner();
+    }
+
+    private void promptForUsername() {
+        String username = prompter.prompt("Please enter your name: ");
+        this.username = username;
     }
 
     private void showBoard() {
@@ -44,6 +68,12 @@ public class SquareUpApp {
         board.checkResult();
     }
 
+    public void updateGame() {
+        if(checkWinner() != null) {
+            setGameOver(true);
+        }
+    }
+
     private String checkWinner() {
         return board.getWinner();
     }
@@ -52,10 +82,11 @@ public class SquareUpApp {
         board.printWinner();
     }
 
-    private void welcome() {
-        System.out.println("\n");
-        System.out.println("W E L C O M E T O T H E S Q U A R E U P A P P L I C A T I O N");
-        System.out.println("\n\n");
+    private void welcome() throws IOException {
+        Console.clear();
+        String banner = Files.readString(Path.of("resources/welcome_banner.txt"));
+        prompter.info(banner);
+        Console.blankLines(2);
     }
 
     private void validateInput(String input) {
@@ -69,7 +100,8 @@ public class SquareUpApp {
 
     // ACCESSOR METHODS
 
-    public void setGameOver(String gameOver) {
+    public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
+
 }
