@@ -2,7 +2,6 @@ package com.squareup.client;
 
 import com.apps.util.Prompter;
 import com.squareup.app.SquareUpApp;
-
 import java.io.IOException;
 import java.util.Scanner;
 

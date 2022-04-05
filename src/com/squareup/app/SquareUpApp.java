@@ -5,9 +5,6 @@ import com.apps.util.Console;
 import com.apps.util.Prompter;
 import com.apps.util.SplashApp;
 import com.squareup.Board;
-
-
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +31,7 @@ public class SquareUpApp {
         welcome();
 
         promptForUsername();
-
+        Console.clear();
         // show board
         showBoard();
 
