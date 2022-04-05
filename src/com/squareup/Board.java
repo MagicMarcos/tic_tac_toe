@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Board {
+    private static final String welcomeMsg = "welcome_banner.txt";
     private final String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private final String validInputs = "123456789";
     private String winner = null;
