@@ -3,6 +3,7 @@ package com.squareup;
 import java.util.Arrays;
 
 public class Board {
+    private static final String welcomeMsg = "welcome_banner.txt";
     private final String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private String winner = null;
     private String currentPlayer = "X";
