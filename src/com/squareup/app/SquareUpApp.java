@@ -5,6 +5,7 @@ import com.apps.util.Console;
 import com.apps.util.Prompter;
 import com.apps.util.SplashApp;
 import com.squareup.Board;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,9 +16,12 @@ public class SquareUpApp {
     private Console console;
     private Prompter prompter;
     private SplashApp splashApp;
-    private String username;
+
     private final Board board = Board.getInstance();
     private boolean gameOver;
+
+    private String player1;
+    private String player2;
 
     private Scanner input = new Scanner(System.in);
 
@@ -49,8 +53,11 @@ public class SquareUpApp {
     }
 
     private void promptForUsername() {
-        String username = prompter.prompt("Please enter your name: ");
-        this.username = username;
+        String player1 = prompter.prompt("Player 1 name: ");
+        this.player1 = player1;
+
+        String player2 = prompter.prompt("Player 2 name: ");
+        this.player1 = player2;
     }
 
     private void showBoard() {
@@ -66,7 +73,7 @@ public class SquareUpApp {
     }
 
     public void updateGame() {
-        if(checkWinner() != null) {
+        if (checkWinner() != null) {
             setGameOver(true);
         }
     }
@@ -83,7 +90,7 @@ public class SquareUpApp {
         Console.clear();
         String banner = Files.readString(Path.of("resources/welcome_banner.txt"));
         prompter.info(banner);
-        Console.blankLines(2);
+        Console.blankLines(1);
     }
 
     private void validateInput(String input) {
