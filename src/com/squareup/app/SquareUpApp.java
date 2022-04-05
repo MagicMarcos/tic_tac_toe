@@ -6,21 +6,21 @@ import java.util.Scanner;
 public class SquareUpApp {
 
     private final Board board = Board.getInstance();
-    private Scanner input = new Scanner(System.in);
+
 
     public void execute() {
         // welcome banner
         welcome();
-        //show board
+        // show board
         showBoard();
         // nextTurn
-        //showboard
+        board.run();
+        // showboard
         showBoard();
     }
 
     private void showBoard(){
         board.printGameBoard();
-
     }
 
     private void welcome() {
