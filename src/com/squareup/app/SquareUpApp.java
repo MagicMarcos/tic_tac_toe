@@ -4,9 +4,7 @@ package com.squareup.app;
 import com.apps.util.Console;
 import com.apps.util.Prompter;
 import com.squareup.Board;
-
-
-import javax.swing.*;
+import com.squareup.Player;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,9 +15,11 @@ public class SquareUpApp {
     private Prompter prompter;
     private final Board board = Board.getInstance();
     private boolean gameOver;
+
+    // TODO: delete this garbage
     private int wins;
-    private String playerX;
-    private String playerO;
+    private Player playerX;
+    private Player playerO;
 
     public SquareUpApp(Prompter prompter) {
         this.prompter = prompter;
@@ -33,6 +33,7 @@ public class SquareUpApp {
         // are you a new or returning player?
         // if new -> name -> add new ID (increment ID)
         // separate file with player cound/ IDs
+
         promptForUsername();
         // if returning -> playerId
 
@@ -62,29 +63,34 @@ public class SquareUpApp {
 
         announceWinner();
 
-        String playAgain = prompter.prompt("Would you like to play again? [Y/N] ",
-                "(?i)Y|N", "Please enter 'Y' or 'N'");
+        // TODO: add option for fresh new game and rematch
+        String playAgain = prompter.prompt("Would you like to play again? [Y]es/[N]o/[R]ematch ",
+                "(?i)Y|N|R", "Please enter 'Y', 'R', or 'N'");
 
         if ("Y".equalsIgnoreCase(playAgain)) {
             gameOver = false;
             board.eraseBoard();
             execute();
+        } else if ("R".equalsIgnoreCase(playAgain)) {
+            gameOver = false;
+            board.eraseBoard();
+            run();
         } else {
             gameOver();
+
         }
     }
 
     private String currentTurn() {
 
-        String player = "X".equals(board.getCurrentPlayer()) ? playerX : playerO;
+        String player = "X".equals(board.getCurrentPlayer()) ? playerX.toString() : playerO.toString();
 
-        // TODO: FORMAT WINS
-        return player + "(" + wins + ")" + ", it is your turn: ";
+        return player + ", it is your turn: ";
     }
 
     private void promptForUsername() {
-        this.playerX = prompter.prompt("Player X name: ");
-        this.playerO = prompter.prompt("Player O name: ");
+        this.playerX = new Player(prompter.prompt("Player X name: "));
+        this.playerO = new Player(prompter.prompt("Player O name: "));
     }
 
     private void showBoard() {
@@ -111,9 +117,22 @@ public class SquareUpApp {
     }
 
     private void announceWinner() {
-        wins +=1 ;
+        updateScore();
         Console.clear();
         board.printWinner();
+    }
+
+    private void updateScore() {
+        if ("X".equals(board.checkResult())) {
+            playerX.setWin();
+            playerO.setLoss();
+        } else if ("O".equals(board.checkResult())) {
+            playerO.setWin();
+            playerX.setLoss();
+        } else {
+            playerX.setDraw();
+            playerO.setDraw();
+        }
     }
 
     private void welcome() throws IOException {

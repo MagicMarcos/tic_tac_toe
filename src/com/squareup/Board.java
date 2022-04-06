@@ -1,8 +1,6 @@
 package com.squareup;
 
-
 import java.util.Arrays;
-
 
 public class Board {
     private String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -14,7 +12,7 @@ public class Board {
     }
 
     // check result of game
-    public void checkResult() {
+    public String checkResult() {
         for (int idx = 0; idx < 8; idx++) {
             String line = null;
 
@@ -47,13 +45,12 @@ public class Board {
             //X winner
             if (line.equals("XXX")) {
                 setWinner("X");
-                return;
+                break;
             }
-
             // O winner
             else if (line.equals("OOO")) {
                 setWinner("O");
-                return;
+                break;
             }
         }
 
@@ -64,11 +61,10 @@ public class Board {
                 break;
             } else if (idx == 8) {
                 setWinner("draw");
-                return;
             }
         }
 
-
+        return getWinner();
     }
 
 
@@ -120,8 +116,8 @@ public class Board {
     public void eraseBoard() {
         setWinner(null);
         setCurrentPlayer("X");
-        for (int i =0 ; i < board.length; i++) {
-            board[i] = String.valueOf(i+1);
+        for (int i = 0; i < board.length; i++) {
+            board[i] = String.valueOf(i + 1);
         }
     }
 

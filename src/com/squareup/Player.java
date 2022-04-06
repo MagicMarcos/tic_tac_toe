@@ -1,42 +1,52 @@
 package com.squareup;
 
-import java.util.ArrayList;
+public class Player {
+    private String name;
 
-class Player {
-    Player player1 = new Player();
-    Player player2 = new Player();
+    public Player(String name) {
+        this.name = name;
+    }
 
-    int played = 0; // Marcos (2-3-4)
+    //    int played = 0; // Marcos (2-3-4)
     int won = 0;
     int lost = 0;
     int draw = 0;
-    int totalGames = 0;
 
-    private ArrayList<Player> player = new ArrayList<>();
 
-    public void getWins(Player player, int p1Score, int p2Score) {
-
-        if (p1Score > p2Score) {
-
-            won++;
-
-        } else if (p1Score == p2Score) {
-
-            draw++;
-
-        } else {
-
-            lost++;
-
-        }
-
-        totalGames++;
-
-//        if (p2Score != null) {
-//            p2Score.getWins(null, p2Score, p1Score);
-//        }
-
+    public void setDraw() {
+        this.draw++;
     }
+
+    private int getDraws() {
+        return this.draw;
+    }
+
+    public void setLoss() {
+        this.lost++;
+    }
+
+    private int getLosses() {
+        return this.lost;
+    }
+
+    public void setWin() {
+        this.won++;
+    }
+
+    private int getWins() {
+        return this.won;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String toString() {
+        //       W            L             D
+        return getName() + " (" + getWins() + "|" + getLosses() + "|" + getDraws() + ")";
+    }
+
 }
 
 
