@@ -3,60 +3,67 @@ package com.squareup.app;
 
 import com.apps.util.Console;
 import com.apps.util.Prompter;
-import com.apps.util.SplashApp;
 import com.squareup.Board;
 
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
 
 // does ALL prompting (for game and names) -- two private player objs if you have classes
 public class SquareUpApp {
-    private Console console;
     private Prompter prompter;
-    private SplashApp splashApp;
     private final Board board = Board.getInstance();
     private boolean gameOver;
     private String player1;
     private String player2;
 
-    private Scanner input = new Scanner(System.in);
-
-
     public SquareUpApp(Prompter prompter) {
         this.prompter = prompter;
     }
 
-
     public void execute() throws IOException {
 
-
-    // welcome banner
+        // welcome banner
         welcome();
 
         promptForUsername();
 
-        showBoard();
+        run();
+    }
 
+    private void run() throws IOException {
+        showBoard();
 
         while (!gameOver) {
 
-//            String squareNumber = input.nextLine();
             validateInput();
 
             Console.clear();
 
             showBoard();
+
             checkGameStatus();
+
             updateGame();
+
             nextTurn();
+
             showBoard();
         }
 
         announceWinner();
+
+        String playAgain = prompter.prompt("Would you like to play again? [Y/N] ",
+                "(?i)Y|N", "Please enter 'Y' or 'N'");
+
+        if ("Y".equalsIgnoreCase(playAgain)) {
+            execute();
+        } else {
+            // TODO: replace this with a banner
+            prompter.info("Thanks for playing - IDIOT!");
+        }
     }
 
     private String currentTurn() {
@@ -107,14 +114,14 @@ public class SquareUpApp {
     }
 
     private void validateInput() {
-            Console.blankLines(1);
-            String player = currentTurn();
-            int squareNum = Integer.parseInt(prompter.prompt(player, "1|2|3|4|5|6|7|8|9", "Please enter a valid input. [1-9]" ));
-            board.claimSquare(squareNum);
+        Console.blankLines(1);
+        String player = currentTurn();
+        int squareNum = Integer.parseInt(prompter.prompt(player, "1|2|3|4|5|6|7|8|9", "Please enter a valid input. [1-9]"));
+        board.claimSquare(squareNum);
 
     }
 
-// ACCESSOR METHODS
+    // ACCESSOR METHODS
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
