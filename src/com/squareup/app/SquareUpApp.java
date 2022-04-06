@@ -43,9 +43,12 @@ public class SquareUpApp {
 
 
         while (!gameOver) {
-            String squareNumber = input.nextLine();
-            validateInput(squareNumber);
+
+//            String squareNumber = input.nextLine();
+            validateInput();
+
             Console.clear();
+
             showBoard();
             checkGameStatus();
             updateGame();
@@ -53,42 +56,23 @@ public class SquareUpApp {
             showBoard();
         }
 
-
         announceWinner();
     }
 
+    private String currentTurn() {
+
+        String player = "X".equals(board.getCurrentPlayer()) ? player1 : player2;
+
+        return player + ", it is your turn: ";
+    }
 
     private void promptForUsername() {
-        System.out.println("Player 1, enter your name: ");
-        String p1 = input.nextLine();
-        //String player1 = prompter.prompt("Player 1 name: ");
-        //this.player1 = player1;
-
-        System.out.println("Player 2, enter your name: ");
-        String p2 = input.nextLine();
-        //String player2 = prompter.prompt("Player 2 name: ");
-        //this.player1 = player2;
-
-        // Keep track of next turn
-        boolean isPlayer1 = true;
-
-        // Keep track of player characters
-        char symbol = ' ';
-        if (isPlayer1) {
-            symbol = 'X';
-        } else {
-            symbol = 'O';
-        }
-
-        if (isPlayer1) {
-            System.out.println(p1 + "'s Turn (x): ");
-        } else {
-            System.out.println(p2 + "'s Turn (o): ");
-        }
-
+        this.player1 = prompter.prompt("Player X name: ");
+        this.player2 = prompter.prompt("Player O name: ");
     }
 
     private void showBoard() {
+        Console.blankLines(1);
         board.show();
     }
 
@@ -110,11 +94,10 @@ public class SquareUpApp {
         return board.getWinner();
     }
 
-
     private void announceWinner() {
+        Console.clear();
         board.printWinner();
     }
-
 
     private void welcome() throws IOException {
         Console.clear();
@@ -123,16 +106,13 @@ public class SquareUpApp {
         Console.blankLines(1);
     }
 
-
-    private void validateInput(String input) {
-        if (input.matches("1|2|3|4|5|6|7|8|9")) {// -> validates the input
-            int squareNum = Integer.parseInt(input);
+    private void validateInput() {
+            Console.blankLines(1);
+            String player = currentTurn();
+            int squareNum = Integer.parseInt(prompter.prompt(player, "1|2|3|4|5|6|7|8|9", "Please enter a valid input. [1-9]" ));
             board.claimSquare(squareNum);
-        } else {
-            System.out.println("Please enter a valid input. [1-9]");
-        }
-    }
 
+    }
 
 // ACCESSOR METHODS
     public void setGameOver(boolean gameOver) {

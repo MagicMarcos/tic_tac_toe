@@ -32,9 +32,9 @@ class Player {
 
         totalGames++;
 
-        if (p2Score != null) {
-            p2Score.getWins(null, p2Score, p1Score);
-        }
+//        if (p2Score != null) {
+//            p2Score.getWins(null, p2Score, p1Score);
+//        }
 
     }
 }
