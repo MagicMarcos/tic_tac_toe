@@ -16,10 +16,8 @@ public class SquareUpApp {
     private Console console;
     private Prompter prompter;
     private SplashApp splashApp;
-
     private final Board board = Board.getInstance();
     private boolean gameOver;
-
     private String player1;
     private String player2;
 
