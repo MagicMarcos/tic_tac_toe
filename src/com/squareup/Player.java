@@ -1,16 +1,10 @@
 package com.squareup;
 
 class Player {
-    private static String player1;
-    private static String Player2;
+    Player player1 = new Player();
+    Player player2 = new Player();
 
 
-    public void countWin() {
-        //TODO: If player wins >5 times, print "Yay! you mastered SquareUp.
-
-    }
 }
-
-
 
 
