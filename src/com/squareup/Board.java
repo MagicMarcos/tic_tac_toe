@@ -5,15 +5,13 @@ import java.util.Arrays;
 
 
 public class Board {
-    private final String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private String winner = null;
     private String currentPlayer = "X";
-
 
     public static Board getInstance() {
         return new Board();
     }
-
 
     // check result of game
     public void checkResult() {
@@ -52,14 +50,12 @@ public class Board {
                 return;
             }
 
-
             // O winner
             else if (line.equals("OOO")) {
                 setWinner("O");
                 return;
             }
         }
-
 
         // draw check
         for (int idx = 0; idx < 9; idx++) {
@@ -119,6 +115,14 @@ public class Board {
             System.out.println("Player " + winner + " wins!");
         }
 
+    }
+
+    public void eraseBoard() {
+        setWinner(null);
+        setCurrentPlayer("X");
+        for (int i =0 ; i < board.length; i++) {
+            board[i] = String.valueOf(i+1);
+        }
     }
 
     // ACCESSOR METHODS

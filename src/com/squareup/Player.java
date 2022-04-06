@@ -6,7 +6,7 @@ class Player {
     Player player1 = new Player();
     Player player2 = new Player();
 
-    int played = 0;
+    int played = 0; // Marcos (2-3-4)
     int won = 0;
     int lost = 0;
     int draw = 0;
