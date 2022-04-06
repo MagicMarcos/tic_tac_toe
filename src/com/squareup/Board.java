@@ -68,12 +68,15 @@ public class Board {
     }
 
 
-    public void claimSquare(int squareNum) {
-        if (board[squareNum - 1].equals("X") || board[squareNum - 1].equals("O")) {
-            System.out.println("This square is already claimed. Try again.");
-        } else {
+    public boolean claimSquare(int squareNum) {
+        boolean isValidClaim = false;
+
+        if (!board[squareNum - 1].equals("X") && !board[squareNum - 1].equals("O")) {
             board[squareNum - 1] = getCurrentPlayer();
+            isValidClaim = true;
         }
+
+        return isValidClaim;
     }
 
 

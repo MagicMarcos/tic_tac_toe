@@ -7,7 +7,6 @@ public class Player {
         this.name = name;
     }
 
-    //    int played = 0; // Marcos (2-3-4)
     int won = 0;
     int lost = 0;
     int draw = 0;
@@ -43,7 +42,6 @@ public class Player {
 
     @Override
     public String toString() {
-        //       W            L             D
         return getName() + " (" + getWins() + "|" + getLosses() + "|" + getDraws() + ")";
     }
 
