@@ -20,7 +20,6 @@ public class Board {
         for (int idx = 0; idx < 8; idx++) {
             String line = null;
 
-
             switch (idx) {
                 case 0:
                     line = board[0] + board[1] + board[2];
