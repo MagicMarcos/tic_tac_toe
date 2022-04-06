@@ -6,10 +6,12 @@ import com.apps.util.Prompter;
 import com.apps.util.SplashApp;
 import com.squareup.Board;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
+
 
 // does ALL prompting (for game and names) -- two private player objs if you have classes
 public class SquareUpApp {
@@ -25,19 +27,22 @@ public class SquareUpApp {
 
     private Scanner input = new Scanner(System.in);
 
+
     public SquareUpApp(Prompter prompter) {
         this.prompter = prompter;
     }
 
+
     public void execute() throws IOException {
 
-        // welcome banner
+
+    // welcome banner
         welcome();
 
         promptForUsername();
-        Console.clear();
-        // show board
+
         showBoard();
+
 
         while (!gameOver) {
             String squareNumber = input.nextLine();
@@ -47,17 +52,42 @@ public class SquareUpApp {
             checkGameStatus();
             updateGame();
             nextTurn();
+            showBoard();
         }
+
 
         announceWinner();
     }
 
-    private void promptForUsername() {
-        String player1 = prompter.prompt("Player 1 name: ");
-        this.player1 = player1;
 
-        String player2 = prompter.prompt("Player 2 name: ");
-        this.player1 = player2;
+    private void promptForUsername() {
+        System.out.println("Player 1, enter your name: ");
+        String p1 = input.nextLine();
+        //String player1 = prompter.prompt("Player 1 name: ");
+        //this.player1 = player1;
+
+        System.out.println("Player 2, enter your name: ");
+        String p2 = input.nextLine();
+        //String player2 = prompter.prompt("Player 2 name: ");
+        //this.player1 = player2;
+
+        // Keep track of next turn
+        boolean isPlayer1 = true;
+
+        // Keep track of player characters
+        char symbol = ' ';
+        if (isPlayer1) {
+            symbol = 'X';
+        } else {
+            symbol = 'O';
+        }
+
+        if (isPlayer1) {
+            System.out.println(p1 + "'s Turn (x): ");
+        } else {
+            System.out.println(p2 + "'s Turn (o): ");
+        }
+
     }
 
     private void showBoard() {
@@ -82,9 +112,11 @@ public class SquareUpApp {
         return board.getWinner();
     }
 
+
     private void announceWinner() {
         board.printWinner();
     }
+
 
     private void welcome() throws IOException {
         Console.clear();
@@ -92,6 +124,7 @@ public class SquareUpApp {
         prompter.info(banner);
         Console.blankLines(1);
     }
+
 
     private void validateInput(String input) {
         if (input.matches("1|2|3|4|5|6|7|8|9")) {// -> validates the input
@@ -102,10 +135,9 @@ public class SquareUpApp {
         }
     }
 
-    // ACCESSOR METHODS
 
+// ACCESSOR METHODS
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
-
 }

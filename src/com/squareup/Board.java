@@ -47,14 +47,14 @@ public class Board {
                     line = board[2] + board[4] + board[6];
                     break;
             }
-//X winner
+            //X winner
             if (line.equals("XXX")) {
                 setWinner("X");
                 return;
             }
 
 
-// O winner
+            // O winner
             else if (line.equals("OOO")) {
                 setWinner("O");
                 return;
@@ -62,7 +62,7 @@ public class Board {
         }
 
 
-// draw check
+        // draw check
         for (int idx = 0; idx < 9; idx++) {
             if (Arrays.asList(board).contains(
                     String.valueOf(idx + 1))) {
@@ -96,7 +96,7 @@ public class Board {
 
 
     public void show() {
-// printing the game board
+        // printing the game board
         System.out.println("|-----|-----|-----|");
         System.out.println("|  " + board[0] + "  |  "
                 + board[1] + "  |  " + board[2]
@@ -119,24 +119,21 @@ public class Board {
         } else {
             System.out.println("Player " + winner + " wins!");
         }
-    }
 
+    }
 
     // ACCESSOR METHODS
     public String getCurrentPlayer() {
         return currentPlayer;
     }
 
-
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
-
     public String getWinner() {
         return winner;
     }
-
 
     public void setWinner(String winner) {
         this.winner = winner;
