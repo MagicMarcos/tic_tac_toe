@@ -140,4 +140,8 @@ public class Board {
     public void setWinner(String winner) {
         this.winner = winner;
     }
+
+    public String[] getBoard() {
+        return board;
+    }
 }
