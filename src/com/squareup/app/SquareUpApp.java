@@ -146,15 +146,12 @@ public class SquareUpApp {
         }
     }
 
-
     private void gameOver() throws IOException {
         Console.clear();
         String banner = Files.readString(Path.of("resources/thankyou.txt"));
         prompter.info(banner);
         Console.blankLines(1);
     }
-
-
 
     private void howToPlay () {
         prompter.info("¶ How to play:\n" +
