@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Board {
     private String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private String winner = null;
-    private String x = "\033[96m"+ "X" +"\033[0m";
-    private String o = "\033[95m"+ "O" +"\033[0m";
+    private String x = "\033[96m" + "X" + "\033[0m";
+    private String o = "\033[95m" + "O" + "\033[0m";
     private String xWin = getX() + getX() + getX();
     private String oWin = getO() + getO() + getO();
     private String currentPlayer = getX();
@@ -71,7 +71,6 @@ public class Board {
         return getWinner();
     }
 
-
     public boolean claimSquare(int squareNum) {
         boolean isValidClaim = false;
 
@@ -82,7 +81,6 @@ public class Board {
 
         return isValidClaim;
     }
-
 
     public void changePlayers() {
         if (currentPlayer.equals(getX())) {

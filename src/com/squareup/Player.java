@@ -2,16 +2,16 @@ package com.squareup;
 
 public class Player {
     private String name;
+    private int won = 0;
+    private int lost = 0;
+    private int draw = 0;
 
+    // CTOR
     public Player(String name) {
         this.name = name;
     }
 
-    int won = 0;
-    int lost = 0;
-    int draw = 0;
-
-
+    // ACCESSOR METHODS
     public void setDraw() {
         this.draw++;
     }

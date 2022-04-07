@@ -2,6 +2,7 @@ package com.squareup;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class BoardTest {
@@ -46,7 +47,7 @@ public class BoardTest {
 
     @Test
     public void checkResult_shouldReturnNull_whenGameIsOngoing() {
-        assertEquals(board1.checkResult(), null);
+        assertNull(board1.checkResult());
     }
 
     @Test
@@ -100,6 +101,6 @@ public class BoardTest {
     public void eraseBoard_shouldSetPlayerToNull_whenBoardIsReset() {
         board1.setWinner("X");
         board1.eraseBoard();
-        assertEquals(board1.getWinner(), null);
+        assertNull(board1.getWinner());
     }
 }
