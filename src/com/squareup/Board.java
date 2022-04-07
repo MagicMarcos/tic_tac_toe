@@ -67,7 +67,6 @@ public class Board {
                 setWinner("draw");
             }
         }
-
         return getWinner();
     }
 
@@ -90,7 +89,6 @@ public class Board {
         }
     }
 
-
     public void show() {
         // printing the game board
         System.out.println("|-----|-----|-----|");
@@ -108,7 +106,6 @@ public class Board {
         System.out.println("|-----|-----|-----|");
     }
 
-
     public void eraseBoard() {
         setWinner(null);
         setCurrentPlayer(getX());
@@ -116,7 +113,6 @@ public class Board {
             board[i] = String.valueOf(i + 1);
         }
     }
-
     // ACCESSOR METHODS
     public String getCurrentPlayer() {
         return currentPlayer;
