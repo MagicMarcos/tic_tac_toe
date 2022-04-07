@@ -5,7 +5,11 @@ import java.util.Arrays;
 public class Board {
     private String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private String winner = null;
-    private String currentPlayer = "X";
+    private String x = "\033[96m"+ "X" +"\033[0m";
+    private String o = "\033[95m"+ "O" +"\033[0m";
+    private String xWin = getX() + getX() + getX();
+    private String oWin = getO() + getO() + getO();
+    private String currentPlayer = getX();
 
     public static Board getInstance() {
         return new Board();
@@ -43,13 +47,13 @@ public class Board {
                     break;
             }
             //X winner
-            if (line.equals("XXX")) {
-                setWinner("X");
+            if (line.equals(getXWin())) {
+                setWinner(getX());
                 break;
             }
             // O winner
-            else if (line.equals("OOO")) {
-                setWinner("O");
+            else if (line.equals(getOWin())) {
+                setWinner(getO());
                 break;
             }
         }
@@ -71,7 +75,7 @@ public class Board {
     public boolean claimSquare(int squareNum) {
         boolean isValidClaim = false;
 
-        if (!board[squareNum - 1].equals("X") && !board[squareNum - 1].equals("O")) {
+        if (!board[squareNum - 1].equals(getX()) && !board[squareNum - 1].equals(getO())) {
             board[squareNum - 1] = getCurrentPlayer();
             isValidClaim = true;
         }
@@ -81,10 +85,10 @@ public class Board {
 
 
     public void changePlayers() {
-        if (currentPlayer.equals("X")) {
-            setCurrentPlayer("O");
+        if (currentPlayer.equals(getX())) {
+            setCurrentPlayer(getO());
         } else {
-            setCurrentPlayer("X");
+            setCurrentPlayer(getX());
         }
     }
 
@@ -107,18 +111,9 @@ public class Board {
     }
 
 
-    public void printWinner() {
-        if (winner.equals("draw")) {
-            System.out.println("It's a draw...");
-        } else {
-            System.out.println("Player " + winner + " wins!");
-        }
-
-    }
-
     public void eraseBoard() {
         setWinner(null);
-        setCurrentPlayer("X");
+        setCurrentPlayer(getX());
         for (int i = 0; i < board.length; i++) {
             board[i] = String.valueOf(i + 1);
         }
@@ -143,5 +138,21 @@ public class Board {
 
     public String[] getBoard() {
         return board;
+    }
+
+    public String getX() {
+        return this.x;
+    }
+
+    public String getO() {
+        return this.o;
+    }
+
+    public String getXWin() {
+        return xWin;
+    }
+
+    public String getOWin() {
+        return oWin;
     }
 }

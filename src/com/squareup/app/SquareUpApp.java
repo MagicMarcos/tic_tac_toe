@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class SquareUpApp {
+    private String x = "\033[96m"+ "X" +"\033[0m";
+    private String o = "\033[95m"+ "O" +"\033[0m";
+
     private Prompter prompter;
     private final Board board = Board.getInstance();
     private boolean gameOver;
@@ -23,8 +26,7 @@ public class SquareUpApp {
 
         welcome();
         howToPlay();
-        // TODO: make enter green - or whole sentence if not.
-        prompter.prompt("Press [enter] to start\n");
+        prompter.prompt("\033[32mPress [enter] to start... \033[0m\n");
         promptForUsername();
         run();
     }
@@ -54,14 +56,13 @@ public class SquareUpApp {
         Console.blankLines(1);
         String player = currentTurn();
         int squareNum = Integer.parseInt(prompter.prompt(player,
-                "1|2|3|4|5|6|7|8|9", "Please enter a valid input. [1-9]"));
+                "1|2|3|4|5|6|7|8|9", "\033[31mPlease enter a valid input. [1-9]\033[0m"));
 
         if (!board.claimSquare(squareNum)) {
             Console.clear();
-            prompter.info("That square is already claimed! Choose another!");
+            prompter.info("\033[31mThat square is already claimed! Choose another!\033[0m");
             run();
         }
-
     }
 
     private void welcome() throws IOException {
@@ -73,7 +74,7 @@ public class SquareUpApp {
 
     private String currentTurn() {
 
-        String player = "X".equals(board.getCurrentPlayer()) ? playerX.toString() : playerO.toString();
+        String player = getX().equals(board.getCurrentPlayer()) ? playerX.toString() : playerO.toString();
 
         return player + ", it is your turn: ";
     }
@@ -109,16 +110,17 @@ public class SquareUpApp {
     private void announceWinner() {
         updateScore();
         Console.clear();
-        String player = "X".equals(board.getCurrentPlayer()) ? playerX.getName() : playerO.getName();
-        String result = "draw".equals(board.getWinner()) ? "It's a draw!" : player + " wins!";
+        Console.blankLines(1);
+        String player = getX().equals(board.getCurrentPlayer()) ? playerX.getName() : playerO.getName();
+        String result = "draw".equals(board.getWinner()) ? "\033[33mIt's a draw!\033[0m" : "\033[32m" + player + " wins!\033[0m";
         prompter.info(result);
     }
 
     private void updateScore() {
-        if ("X".equals(board.checkResult())) {
+        if (getX().equals(board.checkResult())) {
             playerX.setWin();
             playerO.setLoss();
-        } else if ("O".equals(board.checkResult())) {
+        } else if (getO().equals(board.checkResult())) {
             playerO.setWin();
             playerX.setLoss();
         } else {
@@ -128,8 +130,9 @@ public class SquareUpApp {
     }
 
     private void playAgain () throws IOException {
-        String playAgain = prompter.prompt("Would you like to play again? [Y]es/[N]o/[R]ematch ",
-                "(?i)Y|N|R", "Please enter 'Y', 'R', or 'N'");
+        Console.blankLines(1);
+        String playAgain = prompter.prompt("Would you like to play again? \033[32m[Y]es\033[0m/\033[93m[R]ematch\033[0m/\033[31m[N]o\033[0m ",
+                "(?i)Y|N|R", "\033[31mPlease enter 'Y', 'R', or 'N'\033[0m");
 
         if ("Y".equalsIgnoreCase(playAgain)) {
             gameOver = false;
@@ -154,7 +157,7 @@ public class SquareUpApp {
     }
 
     private void howToPlay () {
-        prompter.info("¶ How to play:\n" +
+        prompter.info("\033[4;31m¶ How to play:\033[0m\n" +
                 "   • The game is played on a 3x3 grid.\n" +
                 "   • Players take turns putting their marks (X or O) in empty squares.\n" +
                 "   • The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.\n" +
@@ -164,5 +167,13 @@ public class SquareUpApp {
     // ACCESSOR METHODS
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+
+    public String getX() {
+        return x;
+    }
+
+    public String getO() {
+        return o;
     }
 }

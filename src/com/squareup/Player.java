@@ -24,7 +24,7 @@ public class Player {
         this.lost++;
     }
 
-    private int getLosses() {
+    public int getLosses() {
         return this.lost;
     }
 
@@ -32,7 +32,7 @@ public class Player {
         this.won++;
     }
 
-    private int getWins() {
+    public int getWins() {
         return this.won;
     }
 
