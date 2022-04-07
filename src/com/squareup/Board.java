@@ -1,21 +1,28 @@
 package com.squareup;
+import static com.squareup.Colors.*;
 
 import java.util.Arrays;
 
 public class Board {
+
     private String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private String winner = null;
-    private String x = "\033[96m" + "X" + "\033[0m";
-    private String o = "\033[95m" + "O" + "\033[0m";
+
+    private String x = CYAN + "X" + RESET;
+    private String o = MAGENTA + "O" + RESET;
     private String xWin = getX() + getX() + getX();
     private String oWin = getO() + getO() + getO();
+
     private String currentPlayer = getX();
 
     public static Board getInstance() {
         return new Board();
     }
 
-    // check result of game
+    /*
+     * Runs algorithm to determine result of the game.
+     *  -> sets and returns "winner" (X,O,draw,null)
+     */
     public String checkResult() {
         for (int idx = 0; idx < 8; idx++) {
             String line = null;
@@ -70,6 +77,7 @@ public class Board {
         return getWinner();
     }
 
+    // Reassigns value in board array, base on player selection IF that value is not "claimed", e.g. X or O
     public boolean claimSquare(int squareNum) {
         boolean isValidClaim = false;
 
@@ -81,31 +89,29 @@ public class Board {
         return isValidClaim;
     }
 
+    // Swaps value of current player
     public void changePlayers() {
-        if (currentPlayer.equals(getX())) {
-            setCurrentPlayer(getO());
-        } else {
-            setCurrentPlayer(getX());
-        }
+        String player = getCurrentPlayer().equals(getX()) ? getO() : getX();
+        setCurrentPlayer(player);
     }
 
     public void show() {
-        // printing the game board
-        System.out.println("|-----|-----|-----|");
-        System.out.println("|  " + board[0] + "  |  "
-                + board[1] + "  |  " + board[2]
-                + "  |");
-        System.out.println("|-----|-----|-----|");
-        System.out.println("|  " + board[3] + "  |  "
-                + board[4] + "  |  " + board[5]
-                + "  |");
-        System.out.println("|-----|-----|-----|");
-        System.out.println("|  " + board[6] + "  |  "
-                + board[7] + "  |  " + board[8]
-                + "  |");
-        System.out.println("|-----|-----|-----|");
+        System.out.println("||=====||=====||=====||");
+        System.out.println("||  " + board[0] + "  ||  "
+                + board[1] + "  ||  " + board[2]
+                + "  ||");
+        System.out.println("||=====||=====||=====||");
+        System.out.println("||  " + board[3] + "  ||  "
+                + board[4] + "  ||  " + board[5]
+                + "  ||");
+        System.out.println("||=====||=====||=====||");
+        System.out.println("||  " + board[6] + "  ||  "
+                + board[7] + "  ||  " + board[8]
+                + "  ||");
+        System.out.println("||=====||=====||=====||");
     }
 
+    // resets board array to initial values
     public void eraseBoard() {
         setWinner(null);
         setCurrentPlayer(getX());
@@ -113,6 +119,7 @@ public class Board {
             board[i] = String.valueOf(i + 1);
         }
     }
+
     // ACCESSOR METHODS
     public String getCurrentPlayer() {
         return currentPlayer;

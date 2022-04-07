@@ -2,38 +2,37 @@ package com.squareup;
 
 public class Player {
     private String name;
-    private int won = 0;
-    private int lost = 0;
-    private int draw = 0;
+    private int wins = 0;
+    private int losses = 0;
+    private int draws = 0;
 
-    // CTOR
     public Player(String name) {
         this.name = name;
     }
 
     // ACCESSOR METHODS
     public void setDraw() {
-        this.draw++;
+        this.draws++;
     }
 
     private int getDraws() {
-        return this.draw;
+        return this.draws;
     }
 
     public void setLoss() {
-        this.lost++;
+        this.losses++;
     }
 
     public int getLosses() {
-        return this.lost;
+        return this.losses;
     }
 
     public void setWin() {
-        this.won++;
+        this.wins++;
     }
 
     public int getWins() {
-        return this.won;
+        return this.wins;
     }
 
     public String getName() {

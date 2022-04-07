@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         SquareUpApp app = new SquareUpApp(new Prompter(new Scanner(System.in)));
         try {
             app.execute();

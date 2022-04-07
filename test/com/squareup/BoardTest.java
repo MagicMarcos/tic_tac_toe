@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
     private Board board1;
+    private String x = "\033[96m" + "X" + "\033[0m";
+    private String o = "\033[95m" + "O" + "\033[0m";
 
     @Before
     public void setUp() {
@@ -18,16 +20,16 @@ public class BoardTest {
         board1.claimSquare(3);
         board1.claimSquare(5);
         board1.claimSquare(7);
-        assertEquals(board1.checkResult(), "X");
+        assertEquals(board1.checkResult(), x);
     }
 
     @Test
     public void checkResult_shouldReturnO_whenOWins() {
-        board1.setCurrentPlayer("O");
+        board1.setCurrentPlayer(o);
         board1.claimSquare(3);
         board1.claimSquare(5);
         board1.claimSquare(7);
-        assertEquals(board1.checkResult(), "O");
+        assertEquals(board1.checkResult(), o);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class BoardTest {
         board1.claimSquare(6);
         board1.claimSquare(7);
         board1.claimSquare(9);
-        board1.setCurrentPlayer("O");
+        board1.setCurrentPlayer(o);
         board1.claimSquare(3);
         board1.claimSquare(5);
         board1.claimSquare(4);
@@ -53,7 +55,7 @@ public class BoardTest {
     @Test
     public void claimSquare_shouldClaimSquare_whenSquareNotClaimed() {
         board1.claimSquare(3);
-        assertEquals(board1.getBoard()[2], "X");
+        assertEquals(board1.getBoard()[2], x);
     }
 
     @Test
@@ -70,21 +72,21 @@ public class BoardTest {
     @Test
     public void changePlayers_shouldSetPlayerToO_whenCurrentPlayerIsX() {
         board1.changePlayers();
-        assertEquals(board1.getCurrentPlayer(), "O");
+        assertEquals(board1.getCurrentPlayer(), o);
     }
 
     @Test
     public void changePlayers_shouldSetPlayerToX_whenCurrentPlayerIsO() {
         board1.setCurrentPlayer("O");
         board1.changePlayers();
-        assertEquals(board1.getCurrentPlayer(), "X");
+        assertEquals(board1.getCurrentPlayer(), x);
     }
 
     @Test
     public void eraseBoard_shouldSetPlayerToX_whenBoardIsReset() {
-        board1.setCurrentPlayer("O");
+        board1.setCurrentPlayer(o);
         board1.eraseBoard();
-        assertEquals(board1.getCurrentPlayer(), "X");
+        assertEquals(board1.getCurrentPlayer(), x);
     }
 
     @Test
@@ -99,7 +101,7 @@ public class BoardTest {
 
     @Test
     public void eraseBoard_shouldSetPlayerToNull_whenBoardIsReset() {
-        board1.setWinner("X");
+        board1.setWinner(x);
         board1.eraseBoard();
         assertNull(board1.getWinner());
     }
