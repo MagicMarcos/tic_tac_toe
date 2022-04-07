@@ -35,7 +35,7 @@ public class SquareUpApp {
 
     private void welcome() throws IOException {
         Console.clear();
-        String banner = Files.readString(Path.of("resources/new.txt"));
+        String banner = Files.readString(Path.of("resources/welcome_banner.txt"));
         prompter.info(banner);
 //        Console.blankLines(1);
     }
@@ -43,7 +43,7 @@ public class SquareUpApp {
     private void howToPlay() {
         prompter.info("\033[4;31m$ How to play:\033[0m\n" +
                 "   *  The game is played on a 3x3 grid.\n" +
-                "   *  Players take turns putting their marks (X or O) in empty squares.\n" +
+                "   *  Players take turns putting their marks (X or O) in empty squares using [1-9].\n" +
                 "   *  The first player to get 3 of her marks in a row (up, down, across, " +
                 "or diagonally) is the winner.\n" +
                 "   *  If all 9 squares are full, the game is over.\n");
